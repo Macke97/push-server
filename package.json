@@ -8,8 +8,7 @@
     "scripts": {
         "dev": "nodemon src/boot.js",
         "build": "NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/babel src --out-dir dist",
-        "start": "node dist/boot.js",
-        "prestart": "yarn build"
+        "start": "node dist/boot.js"
     },
     "dependencies": {
         "core-js": "3",
