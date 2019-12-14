@@ -7,10 +7,15 @@ const cors = require('cors');
 
 const { SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE } = process.env;
 
-webpush.setVapidDetails(SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
-
 module.exports.start = () =>
     new Promise((resolve, reject) => {
+        if (!SUBJECT || !VAPID_PUBLIC || !VAPID_PRIVATE) {
+            reject(
+                new Error('Please provide SUBJECT, VAPID_PUBLIC and VAPID_PRIVATE env variables')
+            );
+        }
+        webpush.setVapidDetails(SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+
         try {
             app.use(cors());
             app.use(express.json());
