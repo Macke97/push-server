@@ -24,6 +24,10 @@ module.exports.start = () =>
                 res.send('Service is up and running.');
             });
 
+            app.get('/publickey', (req, res) => {
+                res.send(VAPID_PUBLIC);
+            });
+
             app.post('/sendmessage', async (req, res) => {
                 const {
                     subscription,
