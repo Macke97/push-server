@@ -3,7 +3,9 @@
         [
             "@babel/preset-env",
             {
-                "targets": "> 0.25%, not dead, not ie 10",
+                "targets": {
+                    "node": true
+                },
                 "useBuiltIns": "usage",
                 "corejs": "3"
             }
