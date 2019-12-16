@@ -45,7 +45,10 @@ module.exports.start = () =>
 
                 try {
                     await webpush.sendNotification(subscription, messageData);
-                    res.send('Message sent!');
+                    res.json({
+                        success: true,
+                        message: JSON.parse(messageData)
+                    });
                 } catch (error) {
                     console.error('Send message error:', error);
                     res.status(500).send('Something went wrong.');
