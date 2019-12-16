@@ -22,8 +22,8 @@ module.exports.start = () =>
             app.use(cors());
             app.use(express.json());
 
-            app.use(jwtAuth);
             app.use('/gettoken', passAuth);
+            app.use(jwtAuth);
 
             app.all('/status', (req, res) => {
                 res.send('Service is up and running.');
