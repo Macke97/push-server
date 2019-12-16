@@ -5,6 +5,8 @@ const app = express();
 const webpush = require('web-push');
 const cors = require('cors');
 
+const { jwtAuth, passAuth } = require('./middlewares');
+
 const { SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE } = process.env;
 
 module.exports.start = () =>
@@ -19,6 +21,9 @@ module.exports.start = () =>
         try {
             app.use(cors());
             app.use(express.json());
+
+            app.use(jwtAuth);
+            app.use('/gettoken', passAuth);
 
             app.all('/status', (req, res) => {
                 res.send('Service is up and running.');
@@ -45,6 +50,11 @@ module.exports.start = () =>
                     console.error('Send message error:', error);
                     res.status(500).send('Something went wrong.');
                 }
+            });
+
+            app.use((err, req, res, next) => {
+                console.error(err);
+                return res.status(err.statusCode).send(err.message);
             });
 
             app.listen(port, () => {
